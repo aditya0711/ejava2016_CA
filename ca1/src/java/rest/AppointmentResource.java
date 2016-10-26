@@ -67,7 +67,6 @@ public class AppointmentResource {
         appTask.setEmail(email);
         appTask.setAsyncResponse(asyncResponse);
         appTask.setAppointmentBean(appointmentBean);
-        appTask.getAllApointment(email);
         executors.execute(appTask);
     }
     
