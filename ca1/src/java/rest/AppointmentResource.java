@@ -7,28 +7,15 @@ package rest;
 
 import business.AppointmentBean;
 import business.PeopleBean;
-import com.oracle.jrockit.jfr.ContentType;
-import static com.oracle.jrockit.jfr.ContentType.Timestamp;
 import entity.Appointment;
 import entity.People;
-import java.text.DateFormat;
-import java.text.ParseException;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.concurrent.ManagedExecutorService;
-import javax.enterprise.concurrent.ManagedScheduledExecutorService;
 import javax.enterprise.context.RequestScoped;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

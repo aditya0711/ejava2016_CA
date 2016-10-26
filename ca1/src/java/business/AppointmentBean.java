@@ -6,7 +6,6 @@
 package business;
 
 import entity.Appointment;
-import entity.People;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

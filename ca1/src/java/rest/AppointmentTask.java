@@ -38,10 +38,7 @@ public class AppointmentTask implements Runnable{
         this.email = email;
     }
     
-    public void getAllApointment(String email){
-        this.email=email;
-        
-    }
+    
 
     @Override
     public void run() {
