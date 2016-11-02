@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"    
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="./newcss.css" rel="stylesheet" type="text/css"/> 
+
+    </h:head>
+    <h:body>
+        Hello from Facelets
+        <p></p>
+        <p></p>
+        <h:form>
+            <h:outputText value="Title   " />
+            <h:inputText id="title" value="#{createNoteView.title}" style="margin-left: 20px;"></h:inputText>
+		<h:message for="Title" ></h:message>
+                
+                <br></br>
+                <br></br>
+            <h:outputText value="Category" />
+            <h:selectOneMenu value="#{createNoteView.category}" >
+                <f:selectItem itemValue="5" itemLabel="Select Category" />				
+                <f:selectItem itemValue="1" itemLabel="Social" />
+                <f:selectItem itemValue="2" itemLabel="For Sale" />
+                <f:selectItem itemValue="3" itemLabel="Jobs" />
+                <f:selectItem itemValue="4" itemLabel="Tuition" />
+             </h:selectOneMenu>	
+            <br></br>
+            <br></br>
+            <h:outputText value="Content"/>
+            <br></br>
+                <h:inputTextarea value="#{createNoteView.content}" readonly="false"/>
+                <br></br>
+            <h:commandButton action="#{createNoteView.createNewNote()}"
+			value="Create Note"  
+                        style="margin-left: 5px;width:200px;height:50px"
+            ></h:commandButton>
+            <h:commandButton action="#{createNoteView.listPosts()}"
+			value="View Posted Notes"
+                        style="width:200px;height:50px"></h:commandButton>
+        </h:form>
+        <br></br>
+        <h:dataTable var="i"  value="#{createNoteView.posts_list}"
+                     styleClass="order-table"
+                        headerClass="order-table-header"
+                    rowClasses="order-table-odd-row,order-table-even-row">
+	<h:column>
+            <f:facet name="header">Post ID</f:facet>
+
+            <h:outputText value="#{i.postid}"/>
+	</h:column>
+        <h:column>
+            <f:facet name="header">Title</f:facet>
+
+            <h:outputText value="#{i.title}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Content</f:facet>           
+            <h:outputText value="#{i.content}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Author</f:facet>
+            <h:outputText value="#{i.author}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Timestamp</f:facet>
+            <h:outputText value="#{i.timestamp}"/>
+        </h:column>    
+	</h:dataTable>
+    </h:body>
+</html>
+

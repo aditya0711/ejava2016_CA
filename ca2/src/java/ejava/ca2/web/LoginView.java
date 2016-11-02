@@ -20,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -61,13 +62,18 @@ public class LoginView implements Serializable {
 		try {
                     System.out.println("inside login"+username+password);
 			req.login(username, password);
+                        userBean.setuserid(username);
+//                        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext()
+//                                                .getSession(false);
+//                        session.setAttribute("userid", username);
                     } catch (Throwable t) {
+                        t.printStackTrace();
 			FacesContext.getCurrentInstance()
 					.addMessage(null, new FacesMessage("Incorrect login"));
 			return (null);
 		}
 
-		return ("valid/index?faces-redirect=true");
+		return ("valid/userDisplay?faces-redirect=true");
 	}
         
         public String encrypt(String password){
@@ -99,6 +105,7 @@ public class LoginView implements Serializable {
             
             try{
                 userBean.register(user, group);
+                
             }
             catch (Throwable t) {
 			FacesContext.getCurrentInstance()

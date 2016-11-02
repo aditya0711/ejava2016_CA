@@ -19,13 +19,21 @@ import javax.persistence.PersistenceContext;
 public class UserBean {
     
     @PersistenceContext private EntityManager em;
-    
+    Users user = new Users();
+
     
     public void register(Users user,Groups groups){
         System.out.println("inside register---- bean");
-
+        this.user = user;
         em.persist(user);
         em.persist(groups);
 
+    }
+    public String returnUserId(){
+        System.out.println("");
+        return user.getUserid();
+    }
+    public void setuserid(String abcd){
+        this.user.setUserid(abcd);
     }
 }
