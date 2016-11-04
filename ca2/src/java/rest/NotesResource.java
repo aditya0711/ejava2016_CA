@@ -59,8 +59,14 @@ public class NotesResource {
     @Path("{category}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonArray findAllByCategory(@PathParam("category") String category ){
-        post_list =  noteBean.findAll(category);
         
+        if(category.equals("all"))
+        {
+            post_list =  noteBean.findAll();
+        }else{
+        post_list =  noteBean.findAll(category);
+        }
+        System.out.println("inside category callling-----");
         sortPostsList(post_list);
         JsonArrayBuilder obj=Json.createArrayBuilder();
         System.out.println("Category: "+ category);

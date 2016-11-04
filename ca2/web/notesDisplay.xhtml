@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+     xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
         <link href="newcss.css" rel="stylesheet" type="text/css"/> 
@@ -23,14 +24,33 @@
         <h3><center>Choose Category</center></h3>
         <h:form>
             <center>
-            <h:selectManyCheckbox >
-                <f:selectItem itemValue="1" itemLabel="For Sale" />
-                <f:selectItem itemValue="2" itemLabel="Jobs" />
-                <f:selectItem itemValue="3" itemLabel="Tuition" />
-                <f:selectItem itemValue="4" itemLabel="Social" />
-                <f:selectItem itemValue="5" itemLabel="All" />
-            </h:selectManyCheckbox>
+            
+ 
+            <h:outputText value="Category" />
+             <select id="category"  class="selectpicker form-control">
+
+                                            <option value="social">Social</option>
+
+                                            <option value="forSale">For Sale</option>
+
+                                            <option value="jobs">Jobs</option>
+
+                                            <option value="tutions">Tuition</option>
+
+                                            <option value="all">All</option>
+
+                                </select>
+             <div class="input-group-btn" style="text-align: center;">
+
+						<button class="btn btn-warning" type="button" id="displayBtn">
+
+								SHOW NOTES
+
+						</button>
+
+                                    </div>
             </center>
+            
         </h:form>
                 <div id="newPost" width="100-px" ><p><br></br></p></div>
 

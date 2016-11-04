@@ -9,6 +9,7 @@ $(function() {
 	var url = "ws://localhost:8080/ca2/notesDisplay";
 	var socket = new WebSocket(url);
 
+
 	socket.onmessage = function(evt) {
 		var msg = evt.data;
                 var str = jQuery.parseJSON(msg);
@@ -24,10 +25,14 @@ $(function() {
                         str.author + "<br><br>");
                 
                
-$("#ResultArea").html("");
+
+ 
+     $("#displayBtn").on("click", function() {
+         $("#ResultArea").html("");
 
     var table = $("<table cellpadding=5 id=abcd class=" + '"table table-striped"'+ " border=1 width=80%  ></table>").appendTo("#ResultArea")
-        $(document).ready(function() {
+    
+  $(document).ready(function() {
     $('#abcd').DataTable();
 } );
             var rowHeader = $("<tr></tr>").appendTo(table);
@@ -38,7 +43,11 @@ $("#ResultArea").html("");
             $("<th class=order-table-header></th>").text("Timestamp").appendTo(rowHeader);
 		//writeToChatboard("Connected to chat server");
                
-                $.getJSON('http://localhost:8080/ca2/api/findAll', function (data) {
+
+  var cat=$("#category").val()
+  var url="http://localhost:8080/ca2/api/findAll/"+cat;
+               
+                $.getJSON(url, function (data) {
                 $.each(data, function (i, value) {
 
                     //Create new row for each record
@@ -50,11 +59,16 @@ $("#ResultArea").html("");
                     $("<td></td>").text(value.timestamp).appendTo(row);
                 });
             });
+  });
+                
+               
                   showData.text('Loading the JSON file.');
                 
 	}
 	socket.onopen = function(evt) {
-           $("#ResultArea").html("");
+           
+         $("#displayBtn").on("click", function() {
+             $("#ResultArea").html("");
 
     var table = $("<table cellpadding=5 id=abcd class=" + '"table table-striped"'+ " border=1 width=80%  ></table>").appendTo("#ResultArea")
          $(document).ready(function() {
@@ -69,7 +83,14 @@ $("#ResultArea").html("");
                 var msg = evt.data;
                 var showData = $('#show-data');
          //Get JSON data by calling action method in controller
-            $.getJSON('http://localhost:8080/ca2/api/findAll', function (data) {
+         
+             
+             
+  var cat=$("#category").val();
+  var url="http://localhost:8080/ca2/api/findAll/"+cat;
+         
+         
+            $.getJSON(url, function (data) {
                 $.each(data, function (i, value) {
 
                     //Create new row for each record
@@ -82,7 +103,7 @@ $("#ResultArea").html("");
                 });
             });
                   
-                  
+                 });  
 	}
 	socket.onclose = function() {
 		//writeToChatboard("Disconnected from chat server");

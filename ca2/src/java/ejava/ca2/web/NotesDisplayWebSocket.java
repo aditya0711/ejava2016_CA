@@ -41,7 +41,7 @@ public class NotesDisplayWebSocket {
     @OnOpen
     public void onOpen(Session peer) {
         peers.add(peer);
-        list = noteBean.findAll();
+        list = noteBean.findAll("Social");
         setList(list);
         
         System.out.println("Socket open list output: " + list.toString());
