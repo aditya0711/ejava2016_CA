@@ -20,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -63,8 +64,7 @@ public class LoginView implements Serializable {
                     System.out.println("inside login"+username+password);
 			req.login(username, password);
                         userBean.setuserid(username);
-                    } catch (Throwable t) {
-                        t.printStackTrace();
+                    } catch (ServletException t) {
 			FacesContext.getCurrentInstance()
 					.addMessage(null, new FacesMessage("Incorrect login"));
 			return (null);
@@ -84,7 +84,6 @@ public class LoginView implements Serializable {
             return output;
 
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            ex.printStackTrace();
         }
             return null;
         }

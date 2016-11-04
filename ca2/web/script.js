@@ -21,13 +21,12 @@ $(function() {
                         str.title + "<br>   Category: "+ 
                         str.category +  "<br>   Content: "+
                         str.content +  "<br>   Timestamp: "+
-                        str.timestamp +  "<br>   Author: "+
-                        str.author + "<br><br>");
+                        str.timestamp +   "<br><br>");
                 
                
 
  
-     $("#displayBtn").on("click", function() {
+     
          $("#ResultArea").html("");
 
     var table = $("<table cellpadding=5 id=abcd class=" + '"table table-striped"'+ " border=1 width=80%  ></table>").appendTo("#ResultArea")
@@ -59,7 +58,7 @@ $(function() {
                     $("<td></td>").text(value.timestamp).appendTo(row);
                 });
             });
-  });
+ 
                 
                
                   showData.text('Loading the JSON file.');
