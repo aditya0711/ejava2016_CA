@@ -7,6 +7,7 @@ package rest;
 
 import ejava.ca2.beans.NoteBean;
 import ejava.ca2.model.Posts;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.ejb.EJB;
@@ -85,21 +86,41 @@ public class NotesResource {
     }
     private List<Posts>  sortPostsList(List<Posts> post_list ){
         System.out.println("Inside sorting");
-        post_list.sort(new Comparator<Posts>(){
-            Boolean flag = false;
-            @Override
-            public int compare(Posts o1, Posts o2) {
-                if(o1.getTimestamp().after(o2.getTimestamp()))
-                    flag = true;
-                
-                if(flag)
-                    return 0;
-                
-                return 1;
-            }
-    }
-        );
         
+//        post_list.sort(new Comparator<Posts>(){
+//            Boolean flag = false;
+//            @Override
+//            public int compare(Posts o1, Posts o2) {
+//                System.out.println("1...."+o1.getTimestamp()+"2...."+o2.getTimestamp());
+//                if(o1.getTimestamp().before(o2.getTimestamp()))
+//                    flag = true;
+//                
+//                if(flag)
+//                    return 0;
+//                
+//                return 1;
+//            }
+//    }
+                
+//);      
+                
+                 Collections.sort(post_list, new Comparator<Posts>() {
+
+            @Override
+            public int compare(Posts t1, Posts t2) {
+                int result = 0;
+                if (t1.getTimestamp().before(t2.getTimestamp())) {
+                        result = 1;
+                }
+                return result;
+            }
+        });
+                Collections.reverse(post_list);
+        System.out.println("First object is " );
+    
+
+        
+       
         
         
         return post_list;

@@ -27,24 +27,7 @@ public class NoteBean {
     private Posts post;
     @PersistenceContext private EntityManager em;
     
-//    public void CreateNote(String title, String content, String author, String Category){
-//            Posts post = new Posts();
-//            post.setPostid("12345678");
-//            post.setAuthor(author);
-//            post.setCategory(Category);
-//            post.setContent(content);
-//            post.setTitle(title);
-//            
-//            
-//            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//            Date date = new Date();
-//            
-//            post.setTimestamp(date);
-//            
-//            System.out.println("NoteBean.java syout" + post.getTimestamp() );
-//            
-//            em.persist(post);
-//    }
+
     public void CreateNote(Posts post){
              em.persist(post);
     }

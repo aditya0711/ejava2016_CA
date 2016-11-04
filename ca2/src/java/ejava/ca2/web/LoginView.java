@@ -67,7 +67,7 @@ public class LoginView implements Serializable {
                     } catch (ServletException t) {
 			FacesContext.getCurrentInstance()
 					.addMessage(null, new FacesMessage("Incorrect login"));
-			return (null);
+			return null;
 		}
 
 		return ("valid/userDisplay?faces-redirect=true");

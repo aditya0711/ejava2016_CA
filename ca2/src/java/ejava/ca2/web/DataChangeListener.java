@@ -33,7 +33,7 @@ public class DataChangeListener {
         obj.add("content", post.getContent());
         obj.add("category", post.getCategory());
         obj.add("timestamp", post.getTimestamp().toString());
-        obj.add("auhtor", post.getAuthor().toString());
+        
 
         JsonObject o = obj.build();
         System.out.println("json object: " + o );
