@@ -5,16 +5,18 @@
  */
 package ejava.ca2.model;
 
+import ejava.ca2.web.DataChangeListener;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
+import javax.persistence.Temporal; 
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -25,9 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Aditya Aggarwal
  */
 @Entity
+@EntityListeners(DataChangeListener.class)
 @Table(name = "posts")
 @XmlRootElement
 @NamedQueries({
+    
     @NamedQuery(name = "Posts.findAll", query = "SELECT p FROM Posts p"),
     @NamedQuery(name = "Posts.findByPostid", query = "SELECT p FROM Posts p WHERE p.postid = :postid"),
     @NamedQuery(name = "Posts.findByTitle", query = "SELECT p FROM Posts p WHERE p.title = :title"),
@@ -49,7 +53,7 @@ public class Posts implements Serializable {
     private String title;
     @Basic(optional = false)
     @Column(name = "timestamp")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
     @Basic(optional = false)
     @Size(min = 1, max = 500)
@@ -63,14 +67,18 @@ public class Posts implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "author")
     private String author;
-
+    //private JsonObject json;
     public Posts() {
     }
 
     public Posts(String postid) {
         this.postid = postid;
     }
-
+//    public String generateJSON(){
+//        StringWriter writer = new StringWriter();
+//        Json.createWriter(writer).write(json);
+//        return writer.toString();
+//    }
     public Posts(String postid, String title, Date timestamp, String content, String category, String author) {
         this.postid = postid;
         this.title = title;

@@ -18,9 +18,9 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -63,9 +63,6 @@ public class LoginView implements Serializable {
                     System.out.println("inside login"+username+password);
 			req.login(username, password);
                         userBean.setuserid(username);
-//                        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext()
-//                                                .getSession(false);
-//                        session.setAttribute("userid", username);
                     } catch (Throwable t) {
                         t.printStackTrace();
 			FacesContext.getCurrentInstance()

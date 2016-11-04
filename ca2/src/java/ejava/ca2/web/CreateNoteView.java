@@ -16,10 +16,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.ejb.EJB;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,11 +34,19 @@ public class CreateNoteView implements Serializable {
      
     private String title;
     private String content;
-    private String author = "";
+    private String author ;
     private int category_index;
-    private String[] category = {"Social", "For Sale", "Jobs", "Tuition", "Misc"};
+    private final String[] category = {"Social", "For Sale", "Jobs", "Tuition"};
  
     private List<Posts> posts_list;
+
+    public int getCategory_index() {
+        return category_index;
+    }
+
+    public void setCategory_index(int category_index) {
+        this.category_index = category_index;
+    }
 
     public List<Posts> getPosts_list() {
         return posts_list;
@@ -81,30 +87,19 @@ public class CreateNoteView implements Serializable {
     public void setCategory(int Category) {
         this.category_index = Category;
     }
-    
-    public void createNewNote(){
-        System.out.println("inside create new note");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        Calendar cal = Calendar.getInstance();
 
+    public void createNewNote(){
         this.author = user.returnUserId();
-        
+        System.out.println("inside create new note");
+        Date date = new Date();
         String postid = UUID.randomUUID().toString().substring(0, 8);
-        
-//        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext()
-//                                                .getSession(false);
-//                        System.out.println(">>>>>>>>>>>>"+session.getAttribute("userid"));
         Posts post = new Posts(postid, this.title, date, this.content, this.category[category_index] , this.author);
-        System.out.println(post.toString() + this.author);
-        
-        noteBean.CreateNote(post.createCopy());
-        
-       
+        System.out.println(post.toString() + this.author);       
+        noteBean.CreateNote(post.createCopy());     
     }
     public void listPosts(){
+        this.author = user.returnUserId();
         posts_list = (List)noteBean.findAllNotes(this.author);
-        
         System.out.println( "list " + posts_list );
     }
     
