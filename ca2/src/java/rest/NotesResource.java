@@ -86,24 +86,7 @@ public class NotesResource {
     }
     private List<Posts>  sortPostsList(List<Posts> post_list ){
         System.out.println("Inside sorting");
-        
-//        post_list.sort(new Comparator<Posts>(){
-//            Boolean flag = false;
-//            @Override
-//            public int compare(Posts o1, Posts o2) {
-//                System.out.println("1...."+o1.getTimestamp()+"2...."+o2.getTimestamp());
-//                if(o1.getTimestamp().before(o2.getTimestamp()))
-//                    flag = true;
-//                
-//                if(flag)
-//                    return 0;
-//                
-//                return 1;
-//            }
-//    }
-                
-//);      
-                
+                   
                  Collections.sort(post_list, new Comparator<Posts>() {
 
             @Override

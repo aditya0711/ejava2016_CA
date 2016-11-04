@@ -111,9 +111,11 @@ public class LoginView implements Serializable {
             username = "";
             FacesContext.getCurrentInstance()
 					.addMessage(null, new FacesMessage("User Registered Successfully. Please Login..."));
-            return ("login");
+            return (null);
             
         }
+        
+     
 
 }
 

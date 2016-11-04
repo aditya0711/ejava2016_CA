@@ -16,8 +16,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -102,5 +105,7 @@ public class CreateNoteView implements Serializable {
         posts_list = (List)noteBean.findAllNotes(this.author);
         System.out.println( "list " + posts_list );
     }
+    
+    
     
 }
