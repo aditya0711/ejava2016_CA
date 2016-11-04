@@ -89,7 +89,7 @@ public class NotesResource {
             Boolean flag = false;
             @Override
             public int compare(Posts o1, Posts o2) {
-                if(o1.getTimestamp().before(o2.getTimestamp()))
+                if(o1.getTimestamp().after(o2.getTimestamp()))
                     flag = true;
                 
                 if(flag)
@@ -99,6 +99,9 @@ public class NotesResource {
             }
     }
         );
+        
+        
+        
         return post_list;
     }
     

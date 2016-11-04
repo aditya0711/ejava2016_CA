@@ -106,8 +106,11 @@ public class LoginView implements Serializable {
             catch (Throwable t) {
 			FacesContext.getCurrentInstance()
 					.addMessage(null, new FacesMessage("User already exists!!"));
+                        return null;
 		}
             username = "";
+            FacesContext.getCurrentInstance()
+					.addMessage(null, new FacesMessage("User Registered Successfully. Please Login..."));
             return ("login");
             
         }
