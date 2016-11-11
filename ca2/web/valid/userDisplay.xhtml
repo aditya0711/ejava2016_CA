@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        
+
+    </h:head>
+    <h:body>
+         <center>
+        <h2><b>User Notes Display</b></h2>
+        <p></p>
+        
+        <p></p>
+       
+        <h:form>
+            <p:panelGrid columns="2">
+            <h:outputText value="Title" />
+            <p:inputText id="title" value="#{createNoteView.title}" ></p:inputText>
+ 
+            <h:outputText value="Category" />
+            <p:selectOneMenu value="#{createNoteView.category_index}" >
+                				
+                <f:selectItem itemValue="0" itemLabel="Social" />
+                <f:selectItem itemValue="1" itemLabel="For Sale" />
+                <f:selectItem itemValue="2" itemLabel="Jobs" />
+                <f:selectItem itemValue="3" itemLabel="Tuition" />
+             </p:selectOneMenu>	
+        
+            <h:outputText value="Content"/>
+                <p:inputTextarea value="#{createNoteView.content}" readonly="false"/>
+                
+            <h:commandButton action="#{createNoteView.createNewNote()}"
+			value="Create Note"  
+                        style="width:200px; height:50px">
+            </h:commandButton>
+                
+            <h:commandButton action="#{createNoteView.listPosts()}"
+			value="View Posted Notes"
+                        style="width:200px;height:50px"></h:commandButton>
+             </p:panelGrid>
+        </h:form>
+        <br></br>
+        
+        <p:dataTable var="i"  value="#{createNoteView.posts_list}" style="font-size:14px; width: 80%;" >
+	<p:column>
+            <f:facet name="header">Post ID</f:facet>
+            
+            <h:outputText value="#{i.postid}"/>
+	</p:column>
+        <p:column>
+            <f:facet name="header">Title</f:facet>
+
+            <h:outputText value="#{i.title}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">Content</f:facet>           
+            <h:outputText value="#{i.content}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">Category</f:facet>
+            <h:outputText value="#{i.category}"/>
+        </p:column>
+            <p:column sortBy="#{i.timestamp}">
+            <f:facet name="header">Timestamp</f:facet>
+            <h:outputText value="#{i.timestamp}"/>
+        </p:column>    
+	</p:dataTable>
+         </center>
+    </h:body>
+</html>
+
