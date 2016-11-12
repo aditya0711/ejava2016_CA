@@ -6,11 +6,11 @@
 package ejava.ca3.business;
 
 import ejava.ca3.model.Pod;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.QueryParam;
 /**
  *
  * @author Aditya Aggarwal
@@ -45,5 +45,22 @@ public class PodBean {
 
     public void updatePod(Pod p) {
         em.merge(p);
+    }
+
+    public List<Pod> findAllUnAck() {
+        TypedQuery<Pod> query = em.createNamedQuery("Pod.findAll", Pod.class);
+        List<Pod> list = query.getResultList();
+//        List<Pod> list2= query.getResultList();
+//        for(Pod pod: list){
+//            if(pod.getAckId() != null)
+//                list.remove(pod);
+//            
+//            System.out.println("------> printing pod " + pod.toString());
+//
+//        }
+//        list2 = list;
+        System.out.println("------> printing pod " + list.toString());
+        return list;  
+
     }
 }

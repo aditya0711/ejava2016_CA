@@ -1,27 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ejava.ca3.rest;
+
 import ejava.ca3.business.PodBean;
 import ejava.ca3.model.Pod;
-import ejava.ca3.rest.UploadTask;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.enterprise.concurrent.ManagedScheduledExecutorService;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.container.AsyncResponse;
-import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.BodyPart;
@@ -30,47 +27,57 @@ import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.MultiPart;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
-@MultipartConfig
-@WebServlet(urlPatterns = {"/upload"})
+/**
+ *
+ * @author Aditya Aggarwal
+ */
+public class UploadTask implements Runnable {
+    private int podId;
+    private String note;
+    private final String teamId="338ca74e";
+    private byte[] image;
+    private AsyncResponse asyncResponse;
+    private PodBean podBean;
 
-public class ImageUpload extends HttpServlet {
-   
-    @EJB private PodBean podBean;
-    @Resource(lookup="concurrent/myThreadPool2")
-    private ManagedScheduledExecutorService service;
-    AsyncResponse asyncResponse;
-        
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int podId=Integer.parseInt(req.getParameter("podId"));
-        String note=req.getParameter("note");
-        Part imagePart=req.getPart("image");
-        
-        byte[] image = new byte[(int)imagePart.getSize()];
-        InputStream is = imagePart.getInputStream();
-        
-        is.read(image);
-        
-        Pod pod = new Pod();
-        Date date = new Date();
-        
-        pod.setDeliveryDate(date);
-        pod.setPodId(podId);
-        pod.setNote(note);
-        pod.setImage(image);
-       
-        podBean.upload(pod);
-        
-        UploadUsingThread(asyncResponse);
-        //UploadToHeadQ(pod.getNote(), pod.getPodId(), pod.getDeliveryDate(), pod.getImage());
-        
+    public PodBean getPodBean() {
+        return podBean;
     }
-    
-    public void UploadUsingThread(@Suspended AsyncResponse asyncResponse){
-        UploadTask appTask = new UploadTask();                        
-        appTask.setAsyncResponse(asyncResponse);
-        appTask.setPodBean(podBean);
-        service.schedule(appTask, 30, TimeUnit.SECONDS);
+
+    public void setPodBean(PodBean podBean) {
+        this.podBean = podBean;
+    }
+
+    public int getPodId() {
+        return podId;
+    }
+
+    public void setPodId(int podId) {
+        this.podId = podId;
+    }
+
+    public AsyncResponse getAsyncResponse() {
+        return asyncResponse;
+    }
+
+    public void setAsyncResponse(AsyncResponse asyncResponse) {
+        this.asyncResponse = asyncResponse;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+   
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
     public void UploadToHeadQ(String note, int podId, Date date, byte[] image) 
 			throws ServletException, IOException {
@@ -103,4 +110,19 @@ public class ImageUpload extends HttpServlet {
 
 		System.out.println(">> call resp:" + callResp.getStatus() +" "+ callResp.getStatusInfo());
     }
+    @Override
+    public void run() {
+        List<Pod> list = podBean.findAllUnAck();
+        for(Pod p:list){
+            try {
+                UploadToHeadQ(p.getNote(), p.getPodId(), p.getDeliveryDate(), p.getImage());
+            } catch (ServletException ex) {
+                Logger.getLogger(UploadTask.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(UploadTask.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
 }
