@@ -7,7 +7,6 @@ package ejava.ca3.rest;
 
 import ejava.ca3.business.DeliveryBean;
 import ejava.ca3.model.Pod;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -34,23 +33,21 @@ public class PodResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray findAll(){
+    public JsonArray findAll() throws Exception{
         pod_list = deliveryBean.findAll();
-        
+        System.out.println("print pod list " + pod_list.toString());
         JsonArrayBuilder obj=Json.createArrayBuilder();
 
                  for(Pod pod: pod_list) 
                     {
-                        abc = pod.getPkgId().getAddress();
-                        System.out.println("inside for PodRsc " + abc);          
+                        System.out.println("inside for PodRsc " + abc); 
                         
                         JsonObjectBuilder objBuilder = Json.createObjectBuilder();
                         objBuilder.add("teamId", "338ca74e");
-                        objBuilder.add("podId",abc);
-//                       objBuilder.add("address", pod.getPkgId().getAddress());
-//                        objBuilder.add("name", pod.getPkgId().getName());
-//                        objBuilder.add("phone", pod.getPkgId().getPhone());
-                        
+                        objBuilder.add("podId",pod.getPodId());
+                        objBuilder.add("address", pod.getPkgId().getAddress());
+                        objBuilder.add("name", pod.getPkgId().getName());
+                        objBuilder.add("phone", pod.getPkgId().getPhone());                       
                         obj.add(objBuilder);
                 }       
         return obj.build();

@@ -31,12 +31,15 @@ public class DeliveryBean {
         em.persist(delivery);
     }
     public List<Pod> findAll(){
-        TypedQuery<Pod> query = em.createNamedQuery(
-				"Delivery.getList", Pod.class);
-        
-        System.out.println("DeliveryBean findAll" + query.getResultList().get(0).getDeliveryDate());
-        
+        String queryString="Select n from Pod n";
+        TypedQuery<Pod> query=em.createQuery(queryString, Pod.class);
         return query.getResultList();
+//        TypedQuery<Pod> query = em.createNamedQuery(
+//				"Delivery.getList", Pod.class);
+//        
+//        System.out.println("DeliveryBean findAll" + query.getResultList().get(0).getDeliveryDate());
+//        List<Pod> list = query.getResultList();
+//        return list;
     }
     
 }
