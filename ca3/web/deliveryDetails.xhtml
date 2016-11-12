@@ -11,6 +11,7 @@
     <h:body>
         <center>
         <h1>Enter Package Details</h1>
+        <h:form>
         <p:panelGrid columns="2">
             <p:outputLabel value="Name"></p:outputLabel>
             <p:inputText id="pkg_name" value="#{deliveryView.name}"></p:inputText>
@@ -23,9 +24,10 @@
             
         </p:panelGrid>
         <br></br>
-        <p:commandButton value="Create Package"  actionListener="#{deliveryView.addDelivery()}"></p:commandButton>
-            </center>
+        <h:commandButton value="Create Package" action="#{deliveryView.addDelivery()}"></h:commandButton>
+        </h:form>
 
+            </center>
     </h:body>
 </html>
 

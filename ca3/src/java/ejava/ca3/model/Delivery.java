@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "delivery")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Delivery.getList", query = "SELECT d.podList FROM Delivery d"),
     @NamedQuery(name = "Delivery.findAll", query = "SELECT d FROM Delivery d"),
     @NamedQuery(name = "Delivery.findByPkgId", query = "SELECT d FROM Delivery d WHERE d.pkgId = :pkgId"),
     @NamedQuery(name = "Delivery.findByName", query = "SELECT d FROM Delivery d WHERE d.name = :name"),
@@ -160,5 +161,4 @@ public class Delivery implements Serializable {
     public String toString() {
         return "ejava.ca3.model.Delivery[ pkgId=" + pkgId + " ]";
     }
-    
 }

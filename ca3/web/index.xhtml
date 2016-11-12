@@ -9,17 +9,25 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+        <center>
+        <h1>Enter Package Details</h1>
+        <h:form>
         <p:panelGrid columns="2">
             <p:outputLabel value="Name"></p:outputLabel>
-            <p:inputText id="pkg_name" ></p:inputText>
+            <p:inputText id="pkg_name" value="#{deliveryView.name}"></p:inputText>
             
             <p:outputLabel value="Address"></p:outputLabel>
-            <p:inputText id="address" ></p:inputText>
+            <p:inputText id="address"  value="#{deliveryView.address}"></p:inputText>
             
             <p:outputLabel value="Phone"></p:outputLabel>
-            <p:inputText id="phone" ></p:inputText>
-        </p:panelGrid>
+            <p:inputText id="phone"  value="#{deliveryView.phone}"></p:inputText>
             
+        </p:panelGrid>
+        <br></br>
+        <h:commandButton value="Create Package" action="#{deliveryView.addDelivery()}"></h:commandButton>
+        </h:form>
+
+            </center>
     </h:body>
 </html>
 

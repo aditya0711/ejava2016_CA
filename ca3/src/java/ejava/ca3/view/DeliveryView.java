@@ -5,20 +5,34 @@
  */
 package ejava.ca3.view;
 
-import javax.enterprise.context.RequestScoped;
+import ejava.ca3.business.DeliveryBean;
+import ejava.ca3.business.PodBean;
+import ejava.ca3.model.Delivery;
+import ejava.ca3.model.Pod;
+import java.io.Serializable;
+import java.util.Date;
+import javax.ejb.EJB;
+import javax.faces.view.ViewScoped;
+
 import javax.inject.Named;
 
 /**
  *
  * @author Aditya Aggarwal
  */
-@RequestScoped
-@Named(value="deliveryView")
-public class DeliveryView {
+
+@ViewScoped
+@Named("deliveryView")
+public class DeliveryView implements Serializable{
+   private static final long serialVersionUID = 1L;
+
     private String Name;
     private String Address;
     private String Phone;
-
+   
+    @EJB private DeliveryBean deliveryBean;
+    @EJB private PodBean podBean;
+    
     public String getName() {
         return Name;
     }
@@ -43,7 +57,21 @@ public class DeliveryView {
         this.Phone = Phone;
     }
     public void addDelivery(){
+        Date date = new Date();
+        Delivery delivery = new Delivery();
+       
+        delivery.setName(this.Name);
+        delivery.setPhone(this.Phone);
+        delivery.setAddress(this.Address);
+        delivery.setCreateDate(date);
         
+        System.out.println("Inside DeliveryView add Delivery" + delivery.getName());
+        
+        deliveryBean.insertDelivery(delivery);
+        
+        Pod pod = new Pod();
+        pod.setPkgId(delivery);
+        pod.setDeliveryDate(date);
+        podBean.insertPod(pod);
     }
-            
 }
