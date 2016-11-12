@@ -36,7 +36,7 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 public class ImageUpload extends HttpServlet {
    
     @EJB private PodBean podBean;
-    @Resource(lookup="concurrent/myThreadPool2")
+    @Resource(lookup="concurrent/myThreadPool3")
     private ManagedScheduledExecutorService service;
     AsyncResponse asyncResponse;
         
@@ -62,15 +62,16 @@ public class ImageUpload extends HttpServlet {
         podBean.upload(pod);
         
         UploadUsingThread(asyncResponse);
-        //UploadToHeadQ(pod.getNote(), pod.getPodId(), pod.getDeliveryDate(), pod.getImage());
-        
+        //UploadToHeadQ(pod.getNote(), pod.getPodId(), pod.getDeliveryDate(), pod.getImage());       
     }
     
     public void UploadUsingThread(@Suspended AsyncResponse asyncResponse){
         UploadTask appTask = new UploadTask();                        
         appTask.setAsyncResponse(asyncResponse);
         appTask.setPodBean(podBean);
-        service.schedule(appTask, 30, TimeUnit.SECONDS);
+        service.schedule(appTask, 10, TimeUnit.SECONDS);
+        
+        //service.scheduleAtFixedRate(appTask, 5, 20, TimeUnit.SECONDS);
     }
     public void UploadToHeadQ(String note, int podId, Date date, byte[] image) 
 			throws ServletException, IOException {
