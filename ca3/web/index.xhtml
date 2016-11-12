@@ -1,12 +1,25 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:f="http://java.sun.com/jsf/core"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <p:panelGrid columns="2">
+            <p:outputLabel value="Name"></p:outputLabel>
+            <p:inputText id="pkg_name" ></p:inputText>
+            
+            <p:outputLabel value="Address"></p:outputLabel>
+            <p:inputText id="address" ></p:inputText>
+            
+            <p:outputLabel value="Phone"></p:outputLabel>
+            <p:inputText id="phone" ></p:inputText>
+        </p:panelGrid>
+            
     </h:body>
 </html>
 
